@@ -28,8 +28,14 @@ def menu():
         user_input = input(USER_CHOICE)
 
 def prompt_add_book():
+    name = input('Enter the new book name: ')
+    author = input('Enter the new book author: ')
 
-# def prompt_add_book() ask for book name and author
+    #Asks the database to save the book
+    database.add_book(name, author)
+
+def list_books():
+
 # def list_books() show all the books in our list
 # def prompt_read_book() ask for book name and change it to "read" in our list
 # def prompt_delete_book() ask for book name and remove book from list
