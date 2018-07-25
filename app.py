@@ -50,5 +50,4 @@ def prompt_delete_book():
 
     database.delete_book(name)
 
-# def prompt_delete_book() ask for book name and remove book from list
 
