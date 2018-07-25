@@ -15,7 +15,8 @@ def add_book(name, author):
     books.append({'name': name, 'author': author, 'read': False})
 
 def get_all_books():
-    return books
+    with open(books_file, 'r') as file:
+        lines = [line.strip() for line in file.readlines()]
 
 def mark_book_as_read(name):
     for book in books:
