@@ -16,7 +16,14 @@ def add_book(name, author):
 
 def get_all_books():
     with open(books_file, 'r') as file:
-        lines = [line.strip() for line in file.readlines()]
+        lines = [line.strip().split(',') for line in file.readlines()] # Read lines and put it in a list and strip white space
+
+    return [ # [[name, author, read], [name, author, read]]
+        {'name': line[0], 'author': line[1], 'read': line[2]}
+        for line in lines
+    ]
+
+
 
 def mark_book_as_read(name):
     for book in books:
