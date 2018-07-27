@@ -39,10 +39,7 @@ def _save_all_books(books):
 
 
 def delete_book(name):
-    global books # Uses books that is not local
-    books_new = [book for book in books if book['name'] != 'name'] # Add each book to new list if book['name'] != name
-
-    for book in books:
-        if book['name'] == name:
-            books.remove(book)
+    books = get_all_books()
+    books = [book for book in books if book['name'] != name]
+    _save_all_books(books)
 
