@@ -12,10 +12,10 @@ books_file = 'books.txt'
 def add_book(name, author):
     with open('books_file', 'a') as file:
         file.write(f'{name},{author},0\n')
-    books.append({'name': name, 'author': author, 'read': False})
+    #books_file.append({'name': name, 'author': author, 'read': False})
 
 def get_all_books():
-    with open(books_file, 'r') as file:
+    with open('books_file', 'r') as file:
         lines = [line.strip().split(',') for line in file.readlines()] # Read lines and put it in a list and strip white space
 
     return [ # [[name, author, read], [name, author, read]]
