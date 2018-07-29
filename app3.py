@@ -1,4 +1,4 @@
-from utils2 import database2
+from utils3 import database3
 
 USER_CHOICE = """
 Enter:
@@ -12,7 +12,7 @@ Your choice: """
 
 
 def menu():
-    database2.create_book_table()
+    database3.create_book_table()
     user_input = input(USER_CHOICE)
     while user_input != 'q':
         if user_input == 'a':
@@ -33,11 +33,11 @@ def prompt_add_book():
     author = input('Enter the new book author: ')
 
     #Asks the database to save the book
-    database2.add_book(name, author)
+    database3.add_book(name, author)
 
 def list_books():
     #Asks the database to get all of the books
-    books = database2.get_all_books()
+    books = database3.get_all_books()
     for book in books:
         read = 'YES' if book['read'] == '1' else 'NO' # If true, Yes. If false, No
         print(f"{book['name']} by {book['author']}, read: {read}")
@@ -45,12 +45,12 @@ def list_books():
 def prompt_read_book():
     name = input('Enter the name of the book you just finished reading: ')
 
-    database2.mark_book_as_read(name)
+    database3.mark_book_as_read(name)
 
 def prompt_delete_book():
     name = input('Enter the name of the book you would like to delete: ')
 
-    database2.delete_book(name)
+    database3.delete_book(name)
 
 
 menu()
