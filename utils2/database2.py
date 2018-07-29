@@ -15,6 +15,7 @@ def add_book(name, author):
     #books_file.append({'name': name, 'author': author, 'read': False})
 
 def get_all_books():
+    #opens the file
     with open('books_file', 'r') as file:
         lines = [line.strip().split(',') for line in file.readlines()] # Read lines and put it in a list and strip white space
 
@@ -33,7 +34,7 @@ def mark_book_as_read(name):
 
 # Opens file, delete all contents, goes through all of items in parameter, and types it in csv format
 def _save_all_books(books):
-    with open(books_file, 'w') as file:
+    with open('books_file', 'w') as file:
         for book in books:
             file.write(f"{book['name']},{book['author']},{book['read']}\n")
 
@@ -43,4 +44,3 @@ def delete_book(name):
     books = [book for book in books if book['name'] != name]
     _save_all_books(books)
 
-##
