@@ -12,15 +12,19 @@ def create_book_table():
     cursor = connection.cursor()
 
     #Query to create our table
-    cursor.execute('CREATE TABLE books(name text, author text, read integer)')
+    cursor.execute('CREATE TABLE IF NOT EXISTS books(name text, author text, read integer)')
 
     connection.commit()
     connection.close() # Close the connection
 
 def add_book(name, author):
-    books = get_all_books()
-    books.append({'name': name, 'author': author, 'read': False})
-    _save_all_books(books)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute(f'INSERT INTO books VALUES(?, ?, 0)', (name, author))
+
+    connection.commit()
+    connection.close()
 
 # Opens file, delete all contents, goes through all of items in parameter, and types it in csv format
 def _save_all_books(books):
