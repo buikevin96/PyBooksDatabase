@@ -25,15 +25,14 @@ def add_book(name, author):
     connection.commit()
     connection.close()
 
-
-
 def get_all_books():
     connection = sqlite3.connect('data.db')
     cursor = connection.cursor()
 
     cursor.execute('SELECT * FROM books')
-    books = [{'name': row[0], 'author': row[1], 'read': row[2]} for row in cursor.fetchall() # [(name, author, read), (name, author, read)]
+    books = [{'name': row[0], 'author': row[1], 'read': row[2]} for row in cursor.fetchall()] # [(name, author, read), (name, author, read)]
 
+    connection.commit()
     connection.close()
 
     return books
@@ -48,7 +47,10 @@ def mark_book_as_read(name):
     connection.close()
 
 def delete_book(name):
-    books = get_all_books()
-    books = [book for book in books if book['name'] != name]
-    _save_all_books(books)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
 
+    cursor.execute('DELETE FROM books WHERE name=?', (name,))
+
+    connection.commit()
+    connection.close()
