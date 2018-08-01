@@ -2,7 +2,6 @@ import sqlite3
 """
 Concerned with storing and retrieving books from a database.
 
-
 """
 
 books_file = 'books.json'
@@ -32,9 +31,15 @@ def _save_all_books(books):
         json.dump(books, file)
 
 def get_all_books():
-    #opens the file
-    with open('books_file', 'r') as file:
-        return json.load(file)
+    connection = sqlite3.connect('data.db')
+    cursor = connection.cursor()
+
+    cursor.execute('SELECT * FROM books')
+    books = [{'name': row[0], 'author': row[1], 'read': row[2]} for row in cursor.fetchall() # [(name, author, read), (name, author, read)]
+
+    connection.close()
+
+    return books
 
 def mark_book_as_read(name):
     books = get_all_books() # Read all the books
