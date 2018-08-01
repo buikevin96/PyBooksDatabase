@@ -25,10 +25,7 @@ def add_book(name, author):
     connection.commit()
     connection.close()
 
-# Opens file, delete all contents, goes through all of items in parameter, and types it in csv format
-def _save_all_books(books):
-    with open('books_file', 'w') as file:
-        json.dump(books, file)
+
 
 def get_all_books():
     connection = sqlite3.connect('data.db')
