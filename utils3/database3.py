@@ -8,7 +8,7 @@ Concerned with storing and retrieving books from a database.
 books_file = 'books.json'
 
 def create_book_table():
-    with DatabaseConnection() as connection:
+    with DatabaseConnection('data.db') as connection:
         cursor = connection.cursor()
 
         #Query to create our table
@@ -16,40 +16,31 @@ def create_book_table():
 
 
 def add_book(name, author):
-    connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
+    with DatabaseConnection('data.db') as connection:
+        cursor = connection.cursor()
 
-    cursor.execute(f'INSERT INTO books VALUES(?, ?, 0)', (name, author))
+        cursor.execute(f'INSERT INTO books VALUES(?, ?, 0)', (name, author))
 
-    connection.commit()
-    connection.close()
 
 def get_all_books():
-    connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
+    with DatabaseConnection('data.db') as connection:
+        cursor = connection.cursor()
 
-    cursor.execute('SELECT * FROM books')
-    books = [{'name': row[0], 'author': row[1], 'read': row[2]} for row in cursor.fetchall()] # [(name, author, read), (name, author, read)]
-
-    connection.commit()
-    connection.close()
+        cursor.execute('SELECT * FROM books')
+        books = [{'name': row[0], 'author': row[1], 'read': row[2]} for row in cursor.fetchall()] # [(name, author, read), (name, author, read)]
 
     return books
 
 def mark_book_as_read(name):
-    connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
+    with DatabaseConnection('data.db') as connection:
+        cursor = connection.cursor()
 
-    cursor.execute('UPDATE books SET read=1 WHERE name=?', (name,))
+        cursor.execute('UPDATE books SET read=1 WHERE name=?', (name,))
 
-    connection.commit()
-    connection.close()
 
 def delete_book(name):
-    connection = sqlite3.connect('data.db')
-    cursor = connection.cursor()
+    with DatabaseConnection('data.db') as connection:
+        cursor = connection.cursor()
 
-    cursor.execute('DELETE FROM books WHERE name=?', (name,))
+        cursor.execute('DELETE FROM books WHERE name=?', (name,))
 
-    connection.commit()
-    connection.close()
