@@ -1,4 +1,5 @@
-import sqlite3
+from .database_connection import DatabaseConnection
+
 """
 Concerned with storing and retrieving books from a database.
 
@@ -7,14 +8,12 @@ Concerned with storing and retrieving books from a database.
 books_file = 'books.json'
 
 def create_book_table():
-    connection = sqlite3.connect('data.db') # Connect to database
-    cursor = connection.cursor()
+    with DatabaseConnection() as connection:
+        cursor = connection.cursor()
 
-    #Query to create our table
-    cursor.execute('CREATE TABLE IF NOT EXISTS books(name text, author text, read integer)')
+        #Query to create our table
+        cursor.execute('CREATE TABLE IF NOT EXISTS books(name text, author text, read integer)')
 
-    connection.commit()
-    connection.close() # Close the connection
 
 def add_book(name, author):
     connection = sqlite3.connect('data.db')
